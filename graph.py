@@ -3,6 +3,28 @@ import json
 from collections import defaultdict, deque
 import heapq
 class Graph:
+     def to_csv(self, file_path):
+        with open(file_path, mode='w', newline='') as csvfile:
+            writer = csv.writer(csvfile)
+            for row in self.adj_matrix:
+                writer.writerow(row)
+
+    def to_adj_matrix(self):
+        return self.adj_matrix
+
+    def to_json(self):
+        json_edges = [{'u': u, 'v': v, 'weight': w} for u in self.adj_list for v, w in self.adj_list[u]]
+        return json.dumps(json_edges)
+
+
+    def num_vertices(self):
+        return len(self.vertices)
+
+    def num_edges(self):
+        return len(self.edges)
+
+    def get_vertices(self):
+        return self.vertices
     def dijkstra(self, start):
         min_heap = [(0, start)]
         distances = {vertex: float('inf') for vertex in self.vertices}
